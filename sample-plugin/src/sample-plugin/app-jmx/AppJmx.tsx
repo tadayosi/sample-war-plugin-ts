@@ -12,11 +12,11 @@ import {
   Text,
   Title,
   TreeView,
-  TreeViewProps
+  TreeViewProps,
 } from '@patternfly/react-core'
 import { CubesIcon } from '@patternfly/react-icons'
 import React, { useContext } from 'react'
-import { NavLink, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Split from 'react-split'
 import './AppJmx.css'
 import { AppJmxContext, useAppJmx } from './context'
@@ -51,13 +51,10 @@ export const AppJmx: React.FunctionComponent = () => {
 
 const AppJmxTreeView: React.FunctionComponent = () => {
   const { tree, selectedNode, setSelectedNode } = useContext(AppJmxContext)
-  const navigate = useNavigate()
 
   const onSelect: TreeViewProps['onSelect'] = (_, item) => {
     log.debug('Selected node:', item)
     setSelectedNode(item as MBeanNode)
-    // TODO: Workaround for the issue that otherwise the attributes are not updated immediately
-    navigate(pluginPath)
   }
 
   return (
@@ -92,7 +89,7 @@ const AppJmxContent: React.FunctionComponent = () => {
   const navItems = [
     { id: 'attributes', title: 'Attributes', component: Attributes },
     { id: 'operations', title: 'Operations', component: Operations },
-    { id: 'chart', title: 'Chart', component: Chart }
+    { id: 'chart', title: 'Chart', component: Chart },
   ]
 
   const mbeanNav = (

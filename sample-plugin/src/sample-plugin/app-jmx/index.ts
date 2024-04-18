@@ -1,6 +1,6 @@
-import { HawtioPlugin, hawtio } from '@hawtio/react'
-import { log, pluginName, pluginPath, pluginTitle } from './globals'
+import { HawtioPlugin, hawtio, workspace } from '@hawtio/react'
 import { AppJmx } from './AppJmx'
+import { jmxDomain, log, pluginName, pluginPath, pluginTitle } from './globals'
 
 /**
  * This example demonstrates how you can create a plugin that reuses the views
@@ -15,6 +15,6 @@ export const appJmx: HawtioPlugin = () => {
     title: pluginTitle,
     path: pluginPath,
     component: AppJmx,
-    isActive: async () => true,
+    isActive: async () => workspace.treeContainsDomainAndProperties(jmxDomain),
   })
 }
